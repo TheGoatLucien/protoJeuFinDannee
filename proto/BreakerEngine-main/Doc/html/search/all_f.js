@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['rad2deg_0',['RAD2DEG',['../_tools_8h.html#ac5a945020d3528355cda82d383676736',1,'Tools.h']]],
+  ['radius_1',['radius',['../struct_particle_param.html#a5050a760c11da521cd4aee6336f6529f',1,'ParticleParam']]],
+  ['rand_5ffloat_2',['rand_float',['../_tools_8h.html#a50d1e1e1742bd5a82c663b9a92d85efb',1,'Tools.h']]],
+  ['rand_5fint_3',['rand_int',['../_tools_8h.html#aac41e11b0bd648fe5d1752a6d4dcd151',1,'Tools.h']]],
+  ['random_5fspawn_5frotation_4',['random_spawn_rotation',['../struct_particle_param.html#a9d620efcea23126fa7481d0a0e8a08e1',1,'ParticleParam']]],
+  ['random_5fspeed_5fboost_5',['random_speed_boost',['../struct_particle_param.html#ade81f6bd17aa02630820c3dc2be458cb',1,'ParticleParam']]],
+  ['rectangle_5fcollision_6',['Rectangle_Collision',['../_tools_8h.html#a6a3bc44ca6401dca2bb5a0dd3655ceed',1,'Tools.h']]],
+  ['register_5fstate_7',['REGISTER_STATE',['../_state_8h.html#a0c1b2f15f5b5600edb771a01bbfcdb8c',1,'State.h']]],
+  ['registersubstate_8',['RegisterSubState',['../_game_8h.html#a07d53454948499cf8a28cc7c9a4e267f',1,'Game.h']]],
+  ['remove_5fby_5fid_9',['remove_by_id',['../struct_sprite_manager.html#a0cd787144f21f74e1563c5b0396ff020',1,'SpriteManager']]],
+  ['remove_5fby_5findex_10',['remove_by_index',['../struct_u_i_object_manager.html#a845453a514ede4e6e50a32186acfaba4',1,'UIObjectManager']]],
+  ['remove_5fby_5fname_11',['remove_by_name',['../struct_sprite_manager.html#a8e95aa9a1e48766becc35209d4fd6a3c',1,'SpriteManager::remove_by_name'],['../struct_u_i_object_manager.html#a565321ac891e8fbeedca58d409a230ac',1,'UIObjectManager::remove_by_name']]],
+  ['remove_5fby_5fpointer_12',['remove_by_pointer',['../struct_u_i_object_manager.html#ad2035c11d02dc46545d1b86916b4be62',1,'UIObjectManager']]],
+  ['render_13',['Render',['../struct_state_info.html#a43bdca7e84341c58ddbaa35f25934e40',1,'StateInfo']]],
+  ['render_14',['render',['../struct_u_i_object.html#a807bd1d3c384df6b91a9ddf0426de6b9',1,'UIObject']]],
+  ['reportleaks_15',['ReportLeaks',['../_memory_management_8h.html#acd5d5efabb0d9ea29bffa06669c469e9',1,'MemoryManagement.h']]],
+  ['resettimer_16',['ResetTimer',['../struct_window_manager.html#acc5cfb81127c486f8dbbd32e112b96ed',1,'WindowManager']]],
+  ['resourcesmanager_2eh_17',['ResourcesManager.h',['../_resources_manager_8h.html',1,'']]],
+  ['restartclock_18',['RestartClock',['../struct_window_manager.html#a0658aa4588b4cf6f1e45609cfebe485a',1,'WindowManager']]],
+  ['restartclock_19',['restartClock',['../struct_clock.html#a5af09b61cfe091e1a61f9a8cd7e0f5c2',1,'Clock']]],
+  ['rotation_20',['rotation',['../struct_particle_param.html#a1fc5a0e5fca1a310e6bfa125bf80042e',1,'ParticleParam::rotation'],['../struct_u_i_object___transform.html#a1fc5a0e5fca1a310e6bfa125bf80042e',1,'UIObject_Transform::rotation']]]
+];
