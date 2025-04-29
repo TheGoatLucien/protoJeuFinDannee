@@ -7,9 +7,9 @@ sfSprite* loading_sprite;
 sfSprite* background;
 
 void InitLoading(WindowManager* windowManager)
-{ 
+{
 	loading_bar = sfRectangleShape_create();
-	sfRectangleShape_setSize(loading_bar, sfVector2f_Create(0,50));
+	sfRectangleShape_setSize(loading_bar, sfVector2f_Create(0, 50));
 	sfRectangleShape_setFillColor(loading_bar, sfCyan);
 	sfRectangleShape_setPosition(loading_bar, sfVector2f_Create(560, 800));
 
@@ -28,20 +28,20 @@ void InitLoading(WindowManager* windowManager)
 	background = sfSprite_create();
 	sfSprite_setTexture(background, GetTexture("menu_spritesheet"), sfTrue);
 	sfSprite_setTextureRect(background, (sfIntRect) { 0, 0, 1920, 1080 });
-} 
+}
 
-void UpdateEventLoading(WindowManager* windowManager, sfEvent* evt) 
-{ 
+void UpdateEventLoading(WindowManager* windowManager, sfEvent* evt)
+{
 
-} 
+}
 
-void UpdateLoading(WindowManager* windowManager) 
-{ 
-	sfRectangleShape_setSize(loading_bar, sfVector2f_Create(LERP(sfRectangleShape_getSize(loading_bar).x, LERP(0, 800, GetLoadingValue()) ,DeltaTime * 5.f), sfRectangleShape_getSize(loading_bar).y));
+void UpdateLoading(WindowManager* windowManager)
+{
+	sfRectangleShape_setSize(loading_bar, sfVector2f_Create(LERP(sfRectangleShape_getSize(loading_bar).x, LERP(0, 800, GetLoadingValue()), DeltaTime * 5.f), sfRectangleShape_getSize(loading_bar).y));
 	sfSprite_setRotation(loading_sprite, sfSprite_getRotation(loading_sprite) + 36.f * DeltaTime);
 }
 
-void RenderLoading(WindowManager* windowManager) 
+void RenderLoading(WindowManager* windowManager)
 {
 	windowManager->DrawSprite(windowManager, background, NULL);
 	windowManager->DrawRectangleShape(windowManager, loading_bar, NULL);
@@ -50,14 +50,14 @@ void RenderLoading(WindowManager* windowManager)
 	windowManager->DrawSprite(windowManager, loading_sprite, NULL);
 	sfSprite_setPosition(loading_sprite, sfVector2f_Create(1520, 800));
 	windowManager->DrawSprite(windowManager, loading_sprite, NULL);
-} 
+}
 
 void UIRenderLoading(WindowManager* windowManager)
 {
 
-} 
+}
 
-void DestroyLoading(WindowManager* windowManager) 
+void DestroyLoading(WindowManager* windowManager)
 {
 	sfRectangleShape_destroy(loading_bar);
 	sfRectangleShape_destroy(loading_bar_outline);

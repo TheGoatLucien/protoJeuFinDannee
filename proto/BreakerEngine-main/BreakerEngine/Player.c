@@ -1,111 +1,87 @@
 #include "Player.h"
-#include "Projectile.h"
+#include "GameUtils.h"
+#include <stdlib.h>
 
-SimpleAnim* PlayerTrail;
-Animation* Player;
-sfText* PlayerScoreText;
+Player* CreatePlayer(int id, sfVector2f position, const char* sprite_path) {
+    Player* player = calloc(1, sizeof(Player));
+    player->id = id;
+    player->position = position;
+    player->sprite = sfSprite_create();
+    sfTexture* texture = GetTexture(sprite_path);
+    sfSprite_setTexture(player->sprite, texture, sfTrue);
+    sfSprite_setOrigin(player->sprite, (sfVector2f) { 32, 32 });
+    sfSprite_setPosition(player->sprite, position);
 
-
-
-void InitPlayer()
-{
-	PlayerTrail = CreateSimpleAnim(GetTexture("ingamep1"), (sfIntRect) { 0, 0, 95, 51 }, 1, 3, 3, .1f);
-	Player = CreateAnimation("Player", GetTexture("ingamep2"));
-	Player->AddAnimationKey(Player, CreateAnimationKey("Idle", (sfIntRect) { 0, 5995, 228, 130 }, 1, 1, 1, 1));
-	Player->AddAnimationKey(Player, CreateAnimationKey("Damage", (sfIntRect) { 0, 6125, 228, 130 }, 1, 3, 3, .5f / 6.f));
-	Player->SelectAnimationKey(Player, "Damage");
-	PlayerScoreText = sfText_create();
-	sfText_setFont(PlayerScoreText, GetFont("placeholder"));
-	sfText_setPosition(PlayerScoreText, sfVector2f_Create(50, 50));
-	PlayerScore = 0;
-	
+    if (id == 1) {
+        player->primary_weapon = CreateWeapon(WEAPON_KATANA);
+        player->secondary_weapon = CreateWeapon(WEAPON_BOMB);
+    }
+    else {
+        player->primary_weapon = CreateWeapon(WEAPON_SHOTGUN);
+        player->secondary_weapon = CreateWeapon(WEAPON_BOW);
+    }
+    return player;
 }
 
-void UpdatePlayer(WindowManager* window)
-{
-	Player->Update(Player, DeltaTime);
+void UpdatePlayer(Player* player, WindowManager* window) {
+    float speed = 200.f * DeltaTime;
+    sfVector2f movement = { 0, 0 };
 
-	sfVector2f velocity = sfVector2f_Create(0, 0);
-	sfVector2f pos = sfRectangleShape_getPosition(Player->GetRenderer(Player));
+    if (player->id == 1) {
+        if (sfKeyboard_isKeyPressed(sfKeyA)) movement.x -= speed;
+        if (sfKeyboard_isKeyPressed(sfKeyD)) movement.x += speed;
+        if (sfKeyboard_isKeyPressed(sfKeyW)) movement.y -= speed;
+        if (sfKeyboard_isKeyPressed(sfKeyS)) movement.y += speed;
+        if (sfKeyboard_isKeyPressed(sfKeySpace) && player->primary_weapon->cooldown_timer <= 0) {
+            sfVector2f mouse_pos = window->GetMousePos(window);
+            sfVector2f direction = NormalizeVector2f((sfVector2f) { mouse_pos.x - player->position.x, mouse_pos.y - player->position.y });
+            player->primary_weapon->attack(player->primary_weapon, player->position, direction, window);
+            player->primary_weapon->cooldown_timer = player->primary_weapon->cooldown;
+        }
+        if (sfKeyboard_isKeyPressed(sfKeyE) && player->secondary_weapon->cooldown_timer <= 0) {
+            sfVector2f mouse_pos = window->GetMousePos(window);
+            sfVector2f direction = NormalizeVector2f((sfVector2f) { mouse_pos.x - player->position.x, mouse_pos.y - player->position.y });
+            player->secondary_weapon->attack(player->secondary_weapon, player->position, direction, window);
+            player->secondary_weapon->cooldown_timer = player->secondary_weapon->cooldown;
+        }
+    }
+    else {
+        if (sfKeyboard_isKeyPressed(sfKeyLeft)) movement.x -= speed;
+        if (sfKeyboard_isKeyPressed(sfKeyRight)) movement.x += speed;
+        if (sfKeyboard_isKeyPressed(sfKeyUp)) movement.y -= speed;
+        if (sfKeyboard_isKeyPressed(sfKeyDown)) movement.y += speed;
+        if (sfKeyboard_isKeyPressed(sfKeyReturn) && player->primary_weapon->cooldown_timer <= 0) {
+            sfVector2f mouse_pos = window->GetMousePos(window);
+            sfVector2f direction = NormalizeVector2f((sfVector2f) { mouse_pos.x - player->position.x, mouse_pos.y - player->position.y });
+            player->primary_weapon->attack(player->primary_weapon, player->position, direction, window);
+            player->primary_weapon->cooldown_timer = player->primary_weapon->cooldown;
+        }
+        if (sfKeyboard_isKeyPressed(sfKeyR) && player->secondary_weapon->cooldown_timer <= 0) {
+            sfVector2f mouse_pos = window->GetMousePos(window);
+            sfVector2f direction = NormalizeVector2f((sfVector2f) { mouse_pos.x - player->position.x, mouse_pos.y - player->position.y });
+            player->secondary_weapon->attack(player->secondary_weapon, player->position, direction, window);
+            player->secondary_weapon->cooldown_timer = player->secondary_weapon->cooldown;
+        }
+    }
 
-	if (KEY(D) && pos.x < window->GetBaseSize(window).x - sfRectangleShape_getSize(Player->GetRenderer(Player)).x)
-	{
-		velocity.x = 10;
-	}
-	else if (KEY(Q) && pos.x > 0)
-	{
-		velocity.x = -10;
-	}
-	if (KEY(Z) && pos.y > 0)
-	{
-		velocity.y = -10;
-	}
-	else if (KEY(S) && pos.y < window->GetBaseSize(window).y - sfRectangleShape_getSize(Player->GetRenderer(Player)).y)
-	{
-		velocity.y = 10;
-	}
-	velocity = NormalizeVector2f(velocity);
+    player->position.x += movement.x;
+    player->position.y += movement.y;
+    player->position.x = fClamp(player->position.x, 0, 1920);
+    player->position.y = fClamp(player->position.y, 0, 1080);
+    sfSprite_setPosition(player->sprite, player->position);
 
-	if (KEY_DOWN(Space))
-	{
-		CreateProjectile(AddVector2f(pos, sfVector2f_Create(120, 85)), 100, sfTrue);
-	}
-
-
-	Animation_Key* anim_key = Player->GetCurrentAnimationKey(Player);
-	if (strcmp(anim_key->GetAnimationKeyName(anim_key), "Damage") == 0)
-	{
-		if (anim_key->HasFinishAnim(anim_key) && Player->IsRevert(Player))
-		{
-			Player->SelectAnimationKey(Player, "Idle");
-			Player->SetAnimationParameters(Player, sfFalse, sfFalse, sfFalse);
-		}
-		else if (anim_key->HasFinishAnim(anim_key))
-		{
-			Player->SetAnimationParameters(Player, sfFalse, sfTrue, sfFalse);
-			anim_key->SetCurrentFrame(anim_key, anim_key->GetCurrentFrame(anim_key) - 1);
-		}
-
-	}
-	PlayerPos = AddVector2f(sfRectangleShape_getPosition(Player->GetRenderer(Player)), MultiplyVector2f(velocity, DeltaTime * 400.f));
-	sfRectangleShape_setPosition(Player->GetRenderer(Player), PlayerPos);
-
-	stdString* score = stdStringCreate("Score : ");
-	score->append(score, IntToString(PlayerScore));
-	sfText_setString(PlayerScoreText, score->getData(score));
-	score->destroy(&score);
+    UpdateWeapon(player->primary_weapon, DeltaTime);
+    UpdateWeapon(player->secondary_weapon, DeltaTime);
 }
 
-void DisplayPlayer(WindowManager* window)
-{
-	window->DrawAnimation(window, Player, NULL);
+void RenderPlayer(Player* player, WindowManager* window) {
+    window->DrawSprite(window, player->sprite, NULL);
 }
 
-void DisplayPlayerUI(WindowManager* window)
-{
-	window->DrawText(window, PlayerScoreText, NULL);
-}
-
-void DestroyPlayer()
-{
-	PlayerTrail->Destroy(&PlayerTrail);
-	Player->Destroy(&Player);
-}
-
-void PlayerTakeDamage(int damage)
-{
-	Animation_Key* anim_key = Player->SelectAnimationKey(Player, "Damage");
-	anim_key->SetCurrentFrame(anim_key, 0);
-}
-
-sfFloatRect GetPlayerHitbox()
-{
-	sfVector2f pos = sfRectangleShape_getPosition(Player->GetRenderer(Player));
-	sfVector2f size = {
-		.x = (float)Player->GetCurrentAnimationKey(Player)->GetCurrentRect(Player->GetCurrentAnimationKey(Player)).width,
-		.y = (float)Player->GetCurrentAnimationKey(Player)->GetCurrentRect(Player->GetCurrentAnimationKey(Player)).height
-	};
-
-
-	return (sfFloatRect) { pos.x, pos.y, size.x, size.y };
+void DestroyPlayer(Player** player) {
+    sfSprite_destroy((*player)->sprite);
+    DestroyWeapon(&(*player)->primary_weapon);
+    DestroyWeapon(&(*player)->secondary_weapon);
+    free(*player);
+    *player = NULL;
 }

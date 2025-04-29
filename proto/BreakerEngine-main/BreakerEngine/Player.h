@@ -1,40 +1,23 @@
-/*
-    Author: GRALLAN Yann
+#ifndef PLAYER_H
+#define PLAYER_H
 
-    Description: An advanced game engine for CSFML
-
-    Date: 2025/01/22
-
-    MIT License
-
-    Copyright (c) 2025 GRALLAN Yann
-
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-#pragma once
-#include "Tools.h"
-#include "SpriteManager.h"
+#include <SFML/Graphics.h>
 #include "WindowManager.h"
-#include "Animation.h"
+#include "Weapon.h"
 
-sfVector2f PlayerPos;
-int PlayerScore;
+typedef struct Player Player;
 
-void InitPlayer();
-void UpdatePlayer(WindowManager* window);
-void DisplayPlayer(WindowManager* window);
-void DisplayPlayerUI(WindowManager* window);
-void DestroyPlayer();
+struct Player {
+    int id;
+    sfVector2f position;
+    sfSprite* sprite;
+    Weapon* primary_weapon;
+    Weapon* secondary_weapon;
+};
 
-void PlayerTakeDamage(int damage);
+Player* CreatePlayer(int id, sfVector2f position, const char* sprite_path);
+void UpdatePlayer(Player* player, WindowManager* window);
+void RenderPlayer(Player* player, WindowManager* window);
+void DestroyPlayer(Player** player);
 
-sfFloatRect GetPlayerHitbox();
+#endif

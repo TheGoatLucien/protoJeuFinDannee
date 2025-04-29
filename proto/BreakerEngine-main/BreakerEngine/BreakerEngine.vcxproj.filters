@@ -71,31 +71,22 @@
     <ClInclude Include="WindowManager.h">
       <Filter>Header Files\ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Option.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pause.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="LoadingState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="armes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -154,31 +145,22 @@
     <ClCompile Include="WindowManager.c">
       <Filter>Source Files\ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Option.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InGame.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pause.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LoadingState.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="armes.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
